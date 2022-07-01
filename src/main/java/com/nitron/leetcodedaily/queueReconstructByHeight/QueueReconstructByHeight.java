@@ -12,6 +12,10 @@ public class QueueReconstructByHeight {
 
             if(person1[0]==person2[0])
             {
+               if(person1[1]<person2[1])
+                   return -1;
+               else if (person1[1]>person2[1])
+                   return 1;
                return 0;
             }
             else if(person1[0]<person2[0]) {
