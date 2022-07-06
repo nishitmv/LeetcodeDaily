@@ -1,25 +1,70 @@
 package com.nitron.leetcodedaily.LongestConsecutiveSequence;
 
+import java.util.*;
+
 public class LongestConsecutiveSequence {
 
     int[] heights;
     int[] root;
     public int calc(int[] arr) {
+        int n = arr.length;
 
-        heights = new int[10];
-        root = new int[10];
-        for( int i=0;i<10;i++)
+        if(n == 0 || n == 1)
+            return n;
+
+        int maxEle =0;
+        for (int j : arr) {
+            maxEle = Math.max(maxEle, j);
+        }
+
+        heights = new int[maxEle+1];
+        root = new int[maxEle+1];
+
+        for( int i=0;i<maxEle+1;i++)
         {
             heights[i] =1;
             root[i] = i;
         }
 
-        for(int i =0;i<arr.length-1;i++)
+        List<Integer> list = new ArrayList<>();
+        for( int val : arr)
         {
-            union(arr[i], arr[i+1]);
+            if(!list.contains(val))
+                list.add(val);
+
+           if(list.contains(val-1)) {
+               union(val, val - 1);
+
+           }
+               if(list.contains(val+1)) {
+                   union(val, val + 1);
+
+               }
         }
 
-    return 0;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        Set<Integer> set = new HashSet<>();
+
+        for (int val: arr)
+            set.add(val);
+
+        for (int val : set) {
+            int rootOfVal = find(val);
+            map.computeIfPresent(rootOfVal, (k, v) -> v + 1);
+            map.putIfAbsent(rootOfVal, 1);
+
+        }
+
+        int result =0;
+
+        for(Map.Entry<Integer, Integer> entry : map.entrySet())
+        {
+            result = Math.max(result, entry.getValue());
+        }
+
+
+        return result;
 
     }
 
