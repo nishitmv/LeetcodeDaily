@@ -2,7 +2,7 @@ package com.nitron.leetcodedaily.InterleavingString;
 
 public class InterleavingStringChecker {
 
-    Integer[][]  matrix;
+    Boolean[][]  matrix;
     public boolean isInterleave(String s1, String s2, String s3) {
 
         int m = s3.length();
@@ -13,30 +13,33 @@ public class InterleavingStringChecker {
             return false;
         if(s1.length()+ s2.length() >m)
             return false;
-        matrix = new Integer[m+1][m+1];
-        int s1Result =calcLongestCommonSubsequence(s3.toCharArray(), s1.toCharArray(), m, s1.length() );
-        matrix = new Integer[m+1][m+1];
-        int s2Result = calcLongestCommonSubsequence(s3.toCharArray(), s2.toCharArray(), m, s2.length());
+        matrix = new Boolean[s1.length()+1][s2.length()+1];
 
-
-        return (s1Result+s2Result == s3.length()) && s1Result==s1.length() && s2Result ==  s2.length();
+        return isInterleave(s1, 0, s2, 0, s3);
 
     }
-    private int calcLongestCommonSubsequence(char[] s1, char[] s2, int m, int n) {
 
-        if(m==0 ||n==0)
-            return 0;
+    private boolean isInterleave(String s1, int i, String s2, int j, String s3) {
 
-        if(matrix[m][n]!= null)
-            return matrix[m][n];
+        if(i+j == s3.length())
+            return true;
 
-        if(s1[m-1] == s2[n-1])
+        if(matrix[i][j] != null)
+            return matrix[i][j];
+
+        if(i<s1.length() && s3.charAt(i+j) == s1.charAt(i))
         {
-            return matrix[m][n] = 1+ calcLongestCommonSubsequence(s1, s2, m-1, n-1);
+             matrix[i][j] = isInterleave(s1, i+1, s2, j, s3);
+             if(matrix[i][j])
+                 return true;
         }
-        else {
-            return matrix[m][n] =  Math.max(calcLongestCommonSubsequence(s1, s2, m, n-1), calcLongestCommonSubsequence(s1, s2, m-1, n));
+        if(j<s2.length() && s3.charAt(i+j) == s2.charAt(j))
+        {
+             matrix[i][j] = isInterleave(s1, i, s2, j+1, s3);
+            if(matrix[i][j])
+                return true;
         }
+        return matrix[i][j] = false;
 
     }
 }
