@@ -4,9 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String s1 = "aabd", s2 = "abdc", s3 = "aabdbadc";
+        String s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac";
 
-        System.out.println(new InterleavingStringChecker().areInterleavingStrings(s1, s2, s3));
+
+        System.out.println(new InterleavingStringChecker().isInterleave(s1, s2, s3));
 
 
     }
