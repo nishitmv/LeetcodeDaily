@@ -11,7 +11,9 @@ public class Main {
 
         int[] nums3 = {1,-5,-20,4,-1,3,-6,-3};
 
-        System.out.println(new JumpGame6Optimized().calcMaxScore(nums2, 3));
+        int[] nums4 = {40,30,-100,-100,-10,-7,-3,-3};
+
+        System.out.println(new JumpGame6().calcMaxScore(nums4, 2));
 
     }
 

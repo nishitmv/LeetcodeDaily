@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class JumpGame6Optimized {
-
+// Wrong anwer for some test cases.
     public int calcMaxScore(int[] nums, int k) {
 
         return calcMaxScore(nums, nums.length , k);
