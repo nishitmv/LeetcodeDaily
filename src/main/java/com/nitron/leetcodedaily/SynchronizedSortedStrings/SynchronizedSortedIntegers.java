@@ -1,5 +1,6 @@
 package com.nitron.leetcodedaily.SynchronizedSortedStrings;
 
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,20 +11,24 @@ public class SynchronizedSortedIntegers {
     ReentrantLock lock = new ReentrantLock();
     AtomicInteger counter = new AtomicInteger();
 
+
+    public static void main(String[] args) {
+
+        new SynchronizedSortedIntegers().printIntegersSychronizedRoundRobin(5);
+
+    }
+
     public void printIntegersSychronizedRoundRobin(int k) {
 
-        ExecutorService pool = Executors.newFixedThreadPool(k);
+        CyclicBarrier barrier = new CyclicBarrier(k);
 
+        for ( int i =0; i<k; i++) {
+            int finalI = i;
+         new Thread(() -> {
+                System.out.println(finalI +"  "+Thread.currentThread().getName());
+            }, "Thread "+i).start();
+        }
 
-        for ( int i =0; i<k; i++)
-            pool.submit( () -> {
-                lock.lock();
-                int val = counter.incrementAndGet() ;
-               new ThreadPrinter().printNum(val);
-                if(val == k)
-                    counter = new AtomicInteger();
-                lock.unlock();
-            });
     }
 
     class ThreadPrinter
