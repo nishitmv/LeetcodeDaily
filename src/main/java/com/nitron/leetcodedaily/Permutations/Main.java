@@ -6,7 +6,7 @@ public class Main {
 
         int[] nums = {1,2,3};
 
-        System.out.println(new PermutationsFinderIter().permute(nums));
+        System.out.println(new PermutationsFinder().permute(nums));
 
     }
 
