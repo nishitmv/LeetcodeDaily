@@ -30,11 +30,26 @@ public class LongestPalindromicSubstring {
                 }
                 if (matrix[i][j] > length) {
 
-                    length = matrix[i][j];
-                    start = i-length;
+
+                    int tmplength = matrix[i][j];
+                    int tmpstart = i-tmplength;
+
+                    if(isPalindrome(str1.substring(tmpstart, tmpstart+tmplength)))
+                    {
+                        length = tmplength;
+                        start = tmpstart;
+                    }
+
                 }
             }
-        return str1.substring(start, start+length);
+         return str1.substring(start, start+length);
     }
+
+    private boolean isPalindrome(String str) {
+
+        return str.equals(new StringBuilder(str).reverse().toString());
+
+    }
+
 
 }
