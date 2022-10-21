@@ -41,7 +41,7 @@ public class MinInRotatedArray {
             }
             else if(arr[mid]<arr[end])
             {
-                end = end-1;
+                end = mid-1;
             }
         }
         return -1;
